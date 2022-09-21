@@ -1,0 +1,21 @@
+{
+    "parameters":
+    {
+        "local_server":"True",
+        "local_uri":"mysql://root:@localhost/codingtime",
+        "prod_uri":"mysql://root:@localhost/codingtime",
+        "fb_url":"http://fb.com",
+        "tw_url":"http://twitter.com",
+        "git_url":"http://github.com",
+        "blog_name":"CodingTime",
+        "tag_line":"It's time to play with Codes and create a magical world",
+        "mail":"",
+        "mail_pwd":"",
+        "admin_id":"",
+        "admin_pwd":"",
+        "no_of_post" : 5,
+        "no_of_post_per_page" : 1,
+        "upload_location" : "static\\uploads"
+
+    }
+}    

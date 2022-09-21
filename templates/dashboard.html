@@ -1,0 +1,101 @@
+{% extends 'admin_layout.html' %}
+{% block title %}
+Admin
+{% endblock title %}
+{% block body %}
+
+<script src=
+"https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js">
+        </script>
+
+<!-- Page Header-->
+<header class="masthead" style="background-image: url('static/assets/img/home-bg.jpg')">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <form class="site-heading" method="post" action="/addpost" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Title of the blog</label>
+                        <input type="text" class="form-control" name="title" value="" id="exampleFormControlInput1"
+                            placeholder="">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Sub Heading of the blog</label>
+                        <input type="text" class="form-control" value="" name="subheading" id="exampleFormControlInput1"
+                            placeholder="">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Slug of the blog</label>
+                        <input type="text" class="form-control" value="" name="slug" id="exampleFormControlInput1"
+                            placeholder="">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="exampleFormControlTextarea1" class="form-label">Write Your Blog Here</label>
+                        <textarea class="form-control" name="blog" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <img src="" alt="" id="img" height="150px" width="150px" ;>
+
+                        <input type="file" name="file" id="img_file" value=""  class="btn-sm">
+
+                    </div>
+                    <div class="mb-3">
+                        <button type="submit" class="btn btn-dark">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- Main Content-->
+<div class="container px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+        <div class="col-md-10 col-lg-8 col-xl-7">
+
+            <!-- fetch data from database (upto 4 post) -->
+            {% for post in posts %}
+
+
+            <!-- Post preview-->
+            <div class="post-preview">
+                <a href="/post/{{ post.slug }}">
+                    <h2 class="post-title">{{ post.title }}</h2>
+                    <h3 class="post-subtitle">{{ post.subheading[:100] }}....</h3>
+                </a>
+                <p class="post-meta">
+                    Posted on {{post.date.strftime("%d-%b-%Y")}}
+
+                    <a class="btn btn-outline-dark btn-sm" href="update/{{post.id}}">Update</a>
+                    <a class="btn btn-outline-danger btn-sm" href="delete/{{post.id}}">Delete</a>
+
+                </p>
+            </div>
+            {% endfor %}
+            <!-- Divider-->
+            <hr class="my-4" />
+            <!-- Pager-->
+            <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="#!">Older Posts
+                    →</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Footer-->
+<script>
+    $(document).ready(() => {
+        $("#img_file").change(function () {
+            const file = this.files[0];
+            if (file) {
+                let reader = new FileReader();
+                reader.onload = function (event) {
+                    $("#img")
+                      .attr("src", event.target.result);
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    });
+</script>
+
+{% endblock body %}
